@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    font-size: 13.3333px;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #F9F5E9;
+}
+
+pre {
+    margin: 0;
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+ul {
+   padding: 0;
+   margin: 0; 
+   list-style: none;
+}
+
+.show {
+    display: block;
+}
+.hide {
+    display: none;
+}
+
+button, input {
+    border: none;
+    outline: none;
+    background: none;
+}
+button:hover {
+    cursor: pointer;
+}
+
+main {
+    position: relative; 
+}
+
+/* bookList */
+#bookList-wrapper {
+    max-width: 720px;
+    margin: 30px auto;
+}
+
+#bookList {
+    padding: 0 20px;
+}
+
+#bookList li {
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all .2s;
+    border-radius: 2px;
+}
+
+#bookList li:hover {
+    background: rgba(0, 0, 0, .1);
+}
+
+/* booDetail */
+#bookDetail-wrapper {
+    max-width: 720px;
+    margin: 30px auto;
+}
+
+#bookDetail {
+    padding: 0 20px;
+}
+
+#bookDetail p {
+    margin: 1em 0;
+    line-height: 1.7;
+}
+
+#pageNav {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
+#pageNav > button {
+    height: 36px;
+    line-height: 36px;
+    padding: 0 20px;
+    border-radius: 2px;
+    background: rgba(0, 0, 0, .1);
+    opacity: .3;
+    transition: all .2s;
+}
+
+#pageNav > button:last-child {
+    margin-left: 20px;
+}
+
+#pageNav > button:hover {
+    opacity: 1;
+}
+
+/* encrypt */
+#encrypt {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: rgba(0, 0, 0, .2);
+    top: 0;
+    left: 0;
+}
+
+#encrypt > input {
+    display: block;
+    width: 200px;
+    margin:40vh auto;
+    line-height: 32px;
+    background: rgba(0, 0, 0, .4);
+    padding: 0 12px;
+    border-radius: 2px;
+}
