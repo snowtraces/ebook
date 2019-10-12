@@ -96,7 +96,7 @@
             window.eventHub.on('loadBook', (bookIdx) => {
                 this.view.show()
                 this.model.bookIdx = bookIdx
-                $.get(`/data/book/${bookIdx}`, { time: new Date().getTime() }).then((book) => {
+                $.get(`/data/book/${bookIdx}`).then((book) => {
                     this.model.initWithText(sjcl.decrypt(this.model.password, JSON.stringify(book)))
                     this.view.render(this.model.getLastPageData())
                 })
