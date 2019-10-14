@@ -1,7 +1,7 @@
 {
     let view = {
         el: '#bookList',
-        template: `\${Object.keys(data).map(key => \`<li data-id=\${key}>\${key} \${data[key]}</li>\`).join('')}`,
+        template: `\${Object.keys(data).map(key => \`<li data-id=\${key}>\${data[key]}</li>\`).join('')}`,
         render(data) {
             $.el(this.el).innerHTML = $.evalTemplate(this.template, data)
         },

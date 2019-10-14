@@ -22,6 +22,9 @@
             $.el('#bookDetail-wrapper').classList.remove('hide')
             $.el('#bookDetail-wrapper').classList.add('show')
         },
+        updatePageNo(pageNo) {
+            $.el('#pageNo').innerHTML = pageNo
+        }
     }
 
     let model = {
@@ -87,9 +90,11 @@
             })
             $.bindEvent('#pagePrev', 'click', () => {
                 this.view.render(this.model.getPrevPageData())
+                this.view.updatePageNo(this.model.page.curr)
             })
             $.bindEvent('#pageNext', 'click', () => {
                 this.view.render(this.model.getNextPageData())
+                this.view.updatePageNo(this.model.page.curr)
             })
         },
         bindEventHub() {
@@ -99,6 +104,7 @@
                 $.get(`/data/book/${bookIdx}`).then((book) => {
                     this.model.initWithText(sjcl.decrypt(this.model.password, JSON.stringify(book)))
                     this.view.render(this.model.getLastPageData())
+                    this.view.updatePageNo(this.model.page.curr)
                 })
             })
             window.eventHub.on('passwordChecked', (password) => {

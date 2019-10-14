@@ -33,6 +33,7 @@
             // this.view.render(this.model.data)
             this.bindEvents()
             this.bindEventHub()
+            // this.initPassword()
         },
         bindEvents() {
             $.bindEvent(`${this.view.el} [name=password]`, 'keyup', (e) => {
@@ -45,21 +46,20 @@
 
         },
         checkPassword(password) {
-            let checked = false
             try {
                 let result = sjcl.decrypt(password, JSON.stringify(this.model.baseCode))
                 if (result === 'password') {
-                    checked = true
+                    this.view.hide()
+                    window.eventHub.emit('passwordChecked', password)
+                    localStorage.setItem('BOOK_PASSWORD', password)
                 }
             } catch (e) {
                 $.errorMsg('密码错误')
-                return
             }
-            
-            if (checked) {
-                this.view.hide()
-                window.eventHub.emit('passwordChecked', password)
-            }
+        },
+        initPassword() {
+            let password = localStorage.getItem('BOOK_PASSWORD')
+            this.checkPassword(password)
         }
     }
 

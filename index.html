@@ -18,7 +18,7 @@
 
     <main>
         <div id="bookList-wrapper">
-            <ul id="bookList">
+            <ul id="bookList" class="clearfix">
 
             </ul>
         </div>
@@ -31,7 +31,7 @@
                 <button type="button" id="pagePrev">
                     <</button> <button type="button" id="pageNext">>
                 </button>
-                <button type="button" id="backBtn">返回</button>
+                <button type="button" id="backBtn"><span id="pageNo"></span> | 返回</button>
             </div>
         </div>
 
@@ -46,9 +46,9 @@
     <script src="./js/3partUtil/sjcl.js"></script>
 
     <script src="./js/main.js"></script>
-    <script src="./js/module/encrypt.js"></script>
     <script src="./js/module/bookList.js"></script>
     <script src="./js/module/bookDetail.js"></script>
+    <script src="./js/module/encrypt.js"></script>
 </body>
 
 </html>
