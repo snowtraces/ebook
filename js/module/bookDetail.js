@@ -39,33 +39,39 @@
             total: 0,
             curr: 0
         },
-        initWithText(text) {
-            let rows = text.split('\n').filter(row => row && !(/^\s+$/g.test(row)))
-            this.data.rows = rows
-            this.data.total = rows.length
-            this.page.total = Math.ceil(rows.length / this.page.size)
-        },
         getPageData(pageNo) {
             this.saveBookHistory(pageNo)
             this.page.curr = pageNo
-            let rows = this.data.rows.slice((pageNo - 1) * this.page.size, pageNo * this.page.size)
-            if (pageNo === this.page.total) {
-                rows.push('-- END --')
-            }
-            return rows
+
+            // 根据页码查询指定的数据
+            return $.get(`/data/book/${this.bookIdx}/${String(pageNo).padStart(4, 0)}`).then((bookPage) => {
+                bookPage = sjcl.decrypt(this.password, JSON.stringify(bookPage))
+
+                let rows = bookPage.split('\n').filter(row => row && !(/^\s+$/g.test(row)))
+                if (pageNo == this.page.total) {
+                    rows.push('-- END --')
+                }
+                return rows
+            })
         },
         getNextPageData() {
             let pageNo = Math.min(this.page.curr + 1, this.page.total)
-            return this.getPageData(pageNo)
+            return this.getPageData(pageNo).then((data) => {
+                return data
+            })
         },
         getPrevPageData() {
-            let pageNo = Math.max(this.page.curr - 1, 1)
-            return this.getPageData(pageNo)
+            let pageNo = this.page.curr === 1 ? this.page.total : this.page.curr - 1
+            return this.getPageData(pageNo).then((data) => {
+                return data
+            })
         },
         getLastPageData() {
             let bookHistory = localStorage.getItem('BOOK_HISTORY')
             let pageNo = !bookHistory ? 1 : (JSON.parse(bookHistory)[this.bookIdx] || 1)
-            return this.getPageData(pageNo)
+            return this.getPageData(pageNo).then((data) => {
+                return data
+            })
         },
         saveBookHistory(pageNo) {
             let bookHistory = localStorage.getItem('BOOK_HISTORY')
@@ -89,23 +95,47 @@
                 window.eventHub.emit('loadIndex')
             })
             $.bindEvent('#pagePrev', 'click', () => {
-                this.view.render(this.model.getPrevPageData())
-                this.view.updatePageNo(this.model.page.curr)
-            })
-            $.bindEvent('#pageNext', 'click', () => {
-                this.view.render(this.model.getNextPageData())
-                this.view.updatePageNo(this.model.page.curr)
-            })
-        },
-        bindEventHub() {
-            window.eventHub.on('loadBook', (bookIdx) => {
-                this.view.show()
-                this.model.bookIdx = bookIdx
-                $.get(`/data/book/${bookIdx}`).then((book) => {
-                    this.model.initWithText(sjcl.decrypt(this.model.password, JSON.stringify(book)))
-                    this.view.render(this.model.getLastPageData())
+                this.model.getPrevPageData().then(rows => {
+                    this.view.render(rows)
                     this.view.updatePageNo(this.model.page.curr)
                 })
+            })
+            $.bindEvent('#pageNext', 'click', () => {
+                this.model.getNextPageData().then(rows => {
+                    this.view.render(rows)
+                    this.view.updatePageNo(this.model.page.curr)
+                })
+            })
+            $.bindEvent('body', 'keyup', e => {
+                let isUnDetail = $.el('#bookDetail-wrapper').classList.contains('hide')
+                if (isUnDetail) return
+
+                let key = e.key
+                if (key === 'ArrowRight') {
+                    this.model.getNextPageData().then(rows => {
+                        this.view.render(rows)
+                        this.view.updatePageNo(this.model.page.curr)
+                    })
+                } else if (key === 'ArrowLeft') {
+                    this.model.getPrevPageData().then(rows => {
+                        this.view.render(rows)
+                        this.view.updatePageNo(this.model.page.curr)
+                    })
+                }
+            })
+
+        },
+        bindEventHub() {
+            window.eventHub.on('loadBook', (bookInfo) => {
+                this.view.show()
+                this.model.bookIdx = bookInfo.id
+                this.model.page.total = bookInfo.page
+
+                this.model.getLastPageData().then((rows) => {
+                    this.view.render(rows)
+                    this.view.updatePageNo(this.model.page.curr)
+                })
+
             })
             window.eventHub.on('passwordChecked', (password) => {
                 this.model.password = password

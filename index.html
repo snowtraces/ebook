@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/main.css">
 </head>
 
-<body>
+<body  tabindex="-1">
     <script>
         if (location.protocol === 'http:' && !location.hostname.match(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/)) {
             location.href = 'https:' + location.href.substring(window.location.protocol.length)
@@ -28,8 +28,8 @@
             </div>
 
             <div id="pageNav">
-                <button type="button" id="pagePrev"><</button> <button type="button" id="pageNext">>
-                </button>
+                <button type="button" id="pagePrev">&lt;</button>
+                <button type="button" id="pageNext">></button>
                 <button type="button" id="backBtn"><span id="pageNo"></span> | 返回</button>
             </div>
         </div>
@@ -37,17 +37,27 @@
         <div id="encrypt">
             <input type="password" name="password">
         </div>
+
+        <div id="tool-container">
+            <div id="tool" class="hide">
+            </div>
+            <button id="showToolPageBtn"><span>TOOL<span></button>
+        </div>
+
     </main>
 
     <script src="./js/util/function.js"></script>
     <script src="./js/util/event-hub.js"></script>
+    <script src="./js/util/saveData.js"></script>
 
     <script src="./js/3partUtil/sjcl.js"></script>
+    <script src="./js/3partUtil/jszip.min.js"></script>
 
     <script src="./js/main.js"></script>
     <script src="./js/module/bookList.js"></script>
     <script src="./js/module/bookDetail.js"></script>
     <script src="./js/module/encrypt.js"></script>
+    <script src="./js/module/tool.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 {
     let view = {
         el: '#bookList',
-        template: `\${Object.keys(data).map(key => \`<li data-id=\${key}>\${data[key]}</li>\`).join('')}`,
+        template: `\${Object.keys(data).map(key => \`<li data-id=\${key} data-page=\${data[key].page}>\${data[key].title}</li>\`).join('')}`,
         render(data) {
             $.el(this.el).innerHTML = $.evalTemplate(this.template, data)
         },
@@ -31,7 +31,7 @@
         bindEvents() {
             $.bindEvent(this.view.el + ' > li', 'click', (e) => {
                 this.view.hide()
-                window.eventHub.emit('loadBook', e.target.dataset.id)
+                window.eventHub.emit('loadBook', e.target.dataset)
             })
         },
         bindEventHub() {
