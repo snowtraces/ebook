@@ -43,24 +43,30 @@
             this.saveBookHistory(pageNo)
             this.page.curr = pageNo
 
+            window.eventHub.emit('loadingOn')
+
             // 根据页码查询指定的数据
             return $.get(`/data/book/${this.bookIdx}/${String(pageNo).padStart(4, 0)}.json`).then((bookPage) => {
                 bookPage = sjcl.decrypt(this.password, JSON.stringify(bookPage))
 
                 let rows = bookPage.split('\n').filter(row => row && !(/^\s+$/g.test(row)))
-                if (pageNo == this.page.total) {
+                if (pageNo === this.page.total) {
                     rows.push('-- END --')
                 }
+
+                window.eventHub.emit('loadingOff')
                 return rows
             })
         },
         getNextPageData() {
+            if (this.page.curr === this.page.total) $.errorMsg('已是最后一页')
             let pageNo = Math.min(this.page.curr + 1, this.page.total)
             return this.getPageData(pageNo).then((data) => {
                 return data
             })
         },
         getPrevPageData() {
+            if (this.page.curr === 1) $.successMsg('加载最后一页')
             let pageNo = this.page.curr === 1 ? this.page.total : this.page.curr - 1
             return this.getPageData(pageNo).then((data) => {
                 return data
@@ -129,7 +135,7 @@
             window.eventHub.on('loadBook', (bookInfo) => {
                 this.view.show()
                 this.model.bookIdx = bookInfo.id
-                this.model.page.total = bookInfo.page
+                this.model.page.total = parseInt(bookInfo.page)
 
                 this.model.getLastPageData().then((rows) => {
                     this.view.render(rows)
