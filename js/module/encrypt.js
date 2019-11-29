@@ -37,9 +37,20 @@
         },
         bindEvents() {
             $.bindEvent(`${this.view.el} [name=password]`, 'keyup', (e) => {
+                window.eventHub.emit('pageActive')
                 if (e.keyCode === 13) {
                     this.checkPassword($.el(this.view.el + ' [name=password]').value)
                 }
+            })
+
+            let locker = setTimeout(() => {
+                window.location.reload()
+            }, 60_000);
+            $.bindEvent('body', 'keyup click', e => {
+                clearTimeout(locker)
+                locker = setTimeout(() => {
+                    window.location.reload()
+                }, 60_000);
             })
         },
         bindEventHub() {
