@@ -58,7 +58,7 @@
                 }
                 content = `title:${title}\n${content}`
 
-                $.get('/data/index.json').then((data) => {
+                $.get('/data/index.json?version=' + version).then((data) => {
                     let zip = new JSZip()
                     // 1. 生成index
                     let indexStr
@@ -78,7 +78,7 @@
                     data[indexStr].title = title
 
                     // 数据分片
-                    let rows = content.split('\n').filter(row => row && !(/^\s+$/g.test(row)))
+                    let rows = content.split('\n').filter(row => row && !(/^\s+$/g.test(row))).map(row => row.trim())
                     let rowLength = rows.length
                     let size = this.model.page.size
                     let number = Math.ceil(rowLength / size)
@@ -96,7 +96,7 @@
                         let end = Math.min(start + size, rowLength)
 
                         let sliceContent = rows.slice(start, end).join('\n')
-                        folder.file(String(i + 1).padStart(4, 0), sjcl.encrypt(password, sliceContent));
+                        folder.file(String(i + 1).padStart(4, 0) + '.json', sjcl.encrypt(password, sliceContent));
                     }
 
                     zip.generateAsync({ type: "blob" })

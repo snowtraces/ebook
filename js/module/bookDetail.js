@@ -4,6 +4,8 @@
         template: `\${data.map(row => {
             if (row.startsWith('title:')) {
                 return \`<h2>\${row.substring(6)}</h2>\`
+            } else if (row.startsWith('chapter:')) {
+                return \`<h3>\${row.substring(8)}</h3>\`
             } else if (row.startsWith('author:')) {
                 return \`<p class='author'>\${row.substring(7)}</p>\`
             } else {
@@ -46,7 +48,7 @@
             window.eventHub.emit('loadingOn')
 
             // 根据页码查询指定的数据
-            return $.get(`./data/book/${this.bookIdx}/${String(pageNo).padStart(4, 0)}.json`).then((bookPage) => {
+            return $.get(`./data/book/${this.bookIdx}/${String(pageNo).padStart(4, 0)}.json?version=${version}`).then((bookPage) => {
                 bookPage = sjcl.decrypt(this.password, JSON.stringify(bookPage))
 
                 let rows = bookPage.split('\n').filter(row => row && !(/^\s+$/g.test(row)))

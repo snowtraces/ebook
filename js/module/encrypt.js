@@ -49,7 +49,7 @@
                 clearTimeout(locker)
                 locker = setTimeout(() => {
                     window.location.reload()
-                }, 60_000);
+                }, 600_000);
             })
         },
         bindEventHub() {

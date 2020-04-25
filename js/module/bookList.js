@@ -44,7 +44,7 @@
             })
         },
         render() {
-            $.get('./data/index.json').then((data) => {
+            $.get(`./data/index.json?version=${version}`).then((data) => {
                 data = sjcl.decrypt(this.model.password, JSON.stringify(data))
                 this.view.render(JSON.parse(data))
             })

@@ -1,4 +1,3 @@
-
 var jsList = [
     './js/util/function.js',
     './js/util/event-hub.js',
@@ -12,11 +11,13 @@ var jsList = [
     './js/module/tool.js'
 ]
 
+var developModel = true;
+
 var cssList = [
     './css/main.css'
 ]
 
-var version = '1.0.0'
+var version = developModel ? new Date().getTime() : '1.0.2';
 
 function loadScript(url) {
     var script = document.createElement('script');
