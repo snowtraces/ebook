@@ -11,7 +11,7 @@ var jsList = [
     './js/module/tool.js'
 ]
 
-var developModel = true;
+var developModel = false;
 
 var cssList = [
     './css/main.css'
