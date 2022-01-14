@@ -2,7 +2,7 @@ body {
     margin: 0;
     font-size: 13.3333px;
     font-family: Arial, Helvetica, sans-serif;
-    background: #F9F5E9;
+    background: #f9f5e9;
 }
 
 * {
@@ -20,9 +20,9 @@ pre {
 }
 
 ul {
-   padding: 0;
-   margin: 0; 
-   list-style: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
 .show {
@@ -32,7 +32,8 @@ ul {
     display: none;
 }
 
-button, input {
+button,
+input {
     border: none;
     outline: none;
     background: none;
@@ -42,7 +43,7 @@ button:hover {
 }
 
 main {
-    position: relative; 
+    position: relative;
 }
 
 /* bookList */
@@ -58,12 +59,12 @@ main {
 #bookList li {
     padding: 5px 10px;
     cursor: pointer;
-    transition: all .2s;
+    transition: all 0.2s;
     border-radius: 2px;
     width: calc(50% - 10px);
     height: 100px;
     margin: 5px;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     float: left;
     display: flex;
@@ -71,10 +72,11 @@ main {
     justify-content: center;
     text-align: center;
     font-size: 16px;
+    /* color: #f9f5e9; */
 }
 
 #bookList li:hover {
-    background: rgba(0, 0, 0, .1);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 /* booDetail */
@@ -85,6 +87,7 @@ main {
 
 #bookDetail {
     padding: 0 20px;
+    /* color: #F9F5E9; */
 }
 
 #bookDetail p {
@@ -103,9 +106,9 @@ main {
     line-height: 36px;
     padding: 0 16px;
     border-radius: 2px;
-    background: rgba(0, 0, 0, .1);
-    opacity: .6;
-    transition: all .2s;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0.6;
+    transition: all 0.2s;
 }
 
 #pageNav > button:last-child {
@@ -121,7 +124,7 @@ main {
     width: 100vw;
     height: 100vh;
     position: fixed;
-    background: rgba(0, 0, 0, .2);
+    background: rgba(0, 0, 0, 0.2);
     top: 0;
     left: 0;
 }
@@ -129,9 +132,9 @@ main {
 #encrypt > input {
     display: block;
     width: 200px;
-    margin:40vh auto;
+    margin: 40vh auto;
     line-height: 32px;
-    background: rgba(0, 0, 0, .4);
+    background: rgba(0, 0, 0, 0.4);
     padding: 0 12px;
     border-radius: 2px;
 }
@@ -154,7 +157,7 @@ main {
     content: "";
     display: block;
     border: 30px solid;
-    border-color: transparent rgba(0, 0, 0, .2) rgba(0, 0, 0, .2) transparent;
+    border-color: transparent rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.2) transparent;
     position: fixed;
     right: 0;
     bottom: 0;
@@ -162,7 +165,7 @@ main {
 }
 
 #showToolPageBtn:hover::after {
-    border-color: transparent rgba(0, 0, 0, .4) rgba(0, 0, 0, .4) transparent;
+    border-color: transparent rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.4) transparent;
 }
 
 #tool {
@@ -181,7 +184,7 @@ main {
 }
 
 #tool .toolItem > input {
-    border:solid 1px #999999;
+    border: solid 1px #999999;
     padding: 5px;
     border-radius: 3px;
     width: 100%;
@@ -189,7 +192,7 @@ main {
 }
 
 #tool .toolItem > textarea {
-    border:solid 1px #999999;
+    border: solid 1px #999999;
     padding: 5px;
     border-radius: 3px;
     width: 100%;
@@ -203,8 +206,7 @@ main {
     max-width: 800px;
     border: 1px solid #999999;
     border-radius: 3px;
-    background: rgba(0, 0, 0, .2);
-
+    background: rgba(0, 0, 0, 0.2);
 }
 
 /* #loading */
@@ -214,10 +216,9 @@ main {
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, .5);
-    transition: all .2s;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all 0.2s;
 }
-
 
 @media (max-width: 600px) {
     #bookList li {
@@ -225,18 +226,18 @@ main {
     }
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
     select:focus,
     textarea:focus,
     input:focus {
-      font-size: 16px;
-      background: #eee;
+        font-size: 16px;
+        background: #eee;
     }
 }
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
     select,
     textarea,
     input {
-      font-size: 16px;
+        font-size: 16px;
     }
-  }
+}

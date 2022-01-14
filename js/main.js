@@ -34,9 +34,9 @@ function loadCss(url) {
 }
 
 window.onload = function () {
-    cssList.forEach(css => {
-        this.loadCss(css)
-    })
+    // cssList.forEach(css => {
+    //     this.loadCss(css)
+    // })
 
     jsList.forEach(js => {
         loadScript(js)

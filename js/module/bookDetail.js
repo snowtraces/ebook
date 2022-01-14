@@ -48,7 +48,7 @@
             window.eventHub.emit('loadingOn')
 
             // 根据页码查询指定的数据
-            return $.get(`./data/book/${this.bookIdx}/${String(pageNo).padStart(4, 0)}.json?version=${version}`).then((bookPage) => {
+            return $.get(`./data/book/${this.bookIdx}/${String(pageNo).padStart(4, 0)}.json`).then((bookPage) => {
                 bookPage = sjcl.decrypt(this.password, JSON.stringify(bookPage))
 
                 let rows = bookPage.split('\n').filter(row => row && !(/^\s+$/g.test(row)))

@@ -58,7 +58,7 @@
                 }
                 content = `title:${title}\n${content}`
 
-                $.get('/data/index.json?version=' + version).then((data) => {
+                $.get('./data/index.json?version=' + version).then((data) => {
                     let zip = new JSZip()
                     // 1. 生成index
                     let indexStr
