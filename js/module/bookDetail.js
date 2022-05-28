@@ -25,7 +25,7 @@
             $.el('#bookDetail-wrapper').classList.add('show')
         },
         updatePageNo(pageNo) {
-            $.el('#pageNo').innerHTML = pageNo
+            $.el('#pageTo').value = pageNo
         }
     }
 
@@ -42,6 +42,7 @@
             curr: 0
         },
         getPageData(pageNo) {
+            pageNo = pageNo >= this.page.total ? this.page.total : pageNo
             this.saveBookHistory(pageNo)
             this.page.curr = pageNo
 
@@ -113,6 +114,14 @@
                     this.view.render(rows)
                     this.view.updatePageNo(this.model.page.curr)
                 })
+            })
+            $.bindEvent('#pageTo', 'keyup', (e) => {
+                if (e.keyCode === 13) {
+                    this.model.getPageData($.el('#pageTo').value * 1).then(rows => {
+                        this.view.render(rows)
+                        this.view.updatePageNo(this.model.page.curr)
+                    })
+                }
             })
             $.bindEvent('body', 'keyup', e => {
                 let isUnDetail = $.el('#bookDetail-wrapper').classList.contains('hide')

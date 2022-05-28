@@ -17,7 +17,7 @@ var cssList = [
     './css/main.css'
 ]
 
-var version = developModel ? new Date().getTime() : '1.1';
+var version = developModel ? new Date().getTime() : '1.2';
 
 function loadScript(url) {
     var script = document.createElement('script');
