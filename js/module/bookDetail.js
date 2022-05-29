@@ -115,6 +115,26 @@
                     this.view.updatePageNo(this.model.page.curr)
                 })
             })
+            $.bindEvent('#download', 'click', () => {
+                let count = 0;
+                let dataMap = {}
+                for (let index = 1; index <= this.model.page.total; index++) {
+                    let pageIndex = String(index).padStart(4, 0)
+                    $.get(`./data/book/${this.model.bookIdx}/${pageIndex}.json`).then((bookPage) => {
+                        bookPage = sjcl.decrypt(this.model.password, JSON.stringify(bookPage))
+
+                        dataMap[pageIndex] = bookPage
+
+                        if (++count == this.model.page.total) {
+                            saveData.setDataConver({
+                                name: `book_${this.model.bookIdx}.txt`,
+                                data: Object.values(dataMap).join('\n')
+                            })
+                        }
+                        
+                    })
+                }
+            })
             $.bindEvent('#pageTo', 'keyup', (e) => {
                 if (e.keyCode === 13) {
                     this.model.getPageData($.el('#pageTo').value * 1).then(rows => {

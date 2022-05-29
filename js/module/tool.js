@@ -67,6 +67,7 @@
                         data = sjcl.decrypt(password, JSON.stringify(data))
                         // 新索引
                         data = JSON.parse(data)
+                        debugger
                         let index = parseInt(Object.keys(data).pop() || 0) + 1
                         indexStr = String(index).padStart(6, '0')
                     } else {

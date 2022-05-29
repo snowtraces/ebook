@@ -3,7 +3,7 @@ body {
     font-size: 13.3333px;
     font-family: serif;
     /* background: #f9f5e9; */
-    background: #455;
+    background: #233;
     color: ivory;
 }
 
@@ -64,7 +64,7 @@ main {
     transition: all 0.2s;
     border-radius: 2px;
     width: calc(50% - 10px);
-    height: 100px;
+    height: 60px;
     margin: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
